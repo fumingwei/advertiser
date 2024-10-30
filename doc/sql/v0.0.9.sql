@@ -1,0 +1,2 @@
+ALTER TABLE cu_advertiser_users
+ADD COLUMN is_open BOOLEAN DEFAULT TRUE COMMENT '是否打开';
