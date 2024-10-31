@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_web
     command: uvicorn main:app --host 0.0.0.0 --port 8010
     volumes:
@@ -10,7 +10,7 @@ services:
     network_mode: host
 
   celery_accounts_worker:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_accounts_worker
     command: celery -A my_celery.main worker -Q update_accounts -n celery@update_accounts --loglevel=info --logfile=/app/logs/celery/account_worker.log
     restart: on-failure
@@ -19,7 +19,7 @@ services:
     network_mode: host
 
   celery_balance_transfer_refund_worker:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_balance_transfer_refund_worker
     command: celery -A my_celery.main worker -Q balance_transfer_refund -n celery@balance_transfer_refund --loglevel=info --logfile=/app/logs/celery/balance_transfer_refund_worker.log
     restart: on-failure
@@ -28,7 +28,7 @@ services:
     network_mode: host
 
   celery_balance_transfer_recharge_worker:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_balance_transfer_recharge_worker
     command: celery -A my_celery.main worker -Q balance_transfer_recharge -n celery@balance_transfer_recharge --loglevel=info --logfile=/app/logs/celery/balance_transfer_recharge_worker.log
     restart: on-failure
@@ -37,7 +37,7 @@ services:
     network_mode: host
 
   celery_account_transfer_purse_worker:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_account_transfer_purse_worker
     command: celery -A my_celery.main worker -Q account_transfer_purse -n celery@account_transfer_purse --loglevel=info --logfile=/app/logs/celery/account_transfer_purse_worker.log
     restart: on-failure
@@ -46,7 +46,7 @@ services:
     network_mode: host
 
   celery_beat:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_beat
     command: celery -A my_celery.main beat --loglevel=info --logfile=/app/logs/celery/beat.log
     restart: on-failure
@@ -55,7 +55,7 @@ services:
     network_mode: host
 
   celery_mapi_request_result_worker:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_mapi_request_result_worker
     command: celery -A my_celery.main worker -Q mapi_request_result -n celery@mapi_request_result --loglevel=info --logfile=/app/logs/celery/mapi_request_result_worker.log
     restart: on-failure
@@ -64,7 +64,7 @@ services:
     network_mode: host
 
   celery_export_files_worker:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_export_files_worker
     command: celery -A my_celery.main worker -Q export_files -n celery@export_files --loglevel=info --logfile=/app/logs/celery/export_file_worker.log
     restart: on-failure
@@ -73,7 +73,7 @@ services:
     network_mode: host
 
   mirroring_crm_account:
-    image: advertiser:${SERVER_VERSION}
+    image: ${image-version}
     container_name: advertiser_mirroring_account
     command: python3 apps/common/mirroring_crm_account.py
     restart: on-failure
